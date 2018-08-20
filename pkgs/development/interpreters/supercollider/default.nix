@@ -1,7 +1,7 @@
 { stdenv, fetchurl, cmake, pkgconfig
 , libjack2, libsndfile, fftw, curl, gcc
 , libXt, qtbase, qttools, qtwebkit, readline
-, useSCEL ? false, emacs
+, useSCEL ? false, emacs, libscsynth ? false
 }:
 
 let optional = stdenv.lib.optional;
@@ -22,6 +22,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = ''
     -DSC_WII=OFF
     -DSC_EL=${if useSCEL then "ON" else "OFF"}
+    -DLIBSCSYNTH=${if libscsynth then "ON" else "OFF"}
   '';
 
   nativeBuildInputs = [ cmake pkgconfig qttools ];
